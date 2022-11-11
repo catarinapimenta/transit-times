@@ -1,0 +1,17 @@
+[
+    {
+        "type": "sea",
+        "avgSpeed": 13,
+        "unit": "knots"
+    },
+    {
+        "type": "road",
+        "avgSpeed": 35,
+        "unit": "km/h"
+    },
+    {
+        "type": "air",
+        "avgSpeed": 800,
+        "unit": "km/h"
+    }
+]
