@@ -1,3 +1,5 @@
 [
-    "transit_time_chart"
+    "transit_time_chart",
+    "status_seconds",
+    "response_seconds"
 ]

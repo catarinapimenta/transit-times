@@ -20,13 +20,13 @@ async function buildExcel() {
     const excelColumns = ExcelDataBuilder.getColumns(excelData);
 
     // todo: remove this line!
-    fs.writeFileSync('./results/results.json', JSON.stringify(excelData, undefined, 2));
+    fs.writeFileSync('./data/output.json', JSON.stringify(excelData, undefined, 2));
 
     await ExcelBuilder
         .build('Results')
         .setColumns(excelColumns)
         .setRows(excelData)
-        .generate('./results/output');
+        .generate('./data/output');
 }
 
 // our script
@@ -64,10 +64,12 @@ try {
         
         process.stdout.write('Pls, provide the destinations file path');
         process.exit(0);
-    }
+    };
+
+    const destinationsJsonFile = JSON.parse(fs.readFileSync(destinations));
 
     // start the program
-    whenAllStarts(destinations);
+    whenAllStarts(destinationsJsonFile);
 } catch  {
     // stop the loader
     Timer.stopLoader(timer);
