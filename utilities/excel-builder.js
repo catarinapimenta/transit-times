@@ -41,3 +41,26 @@ exports.build = (worksheetName = 'Results') => {
 
     return builder;
 };
+
+const converter = (worksheet = {}) => {
+    return {
+        toJson(){
+            const keys = worksheet.rows[0].cells.map(cell => cell.value);
+
+            const json = worksheet.rows.slice(1)
+                .map(row => row.cells)
+                .map(cells => cells.reduce(
+                    (mappedCells, cell, index) => { return { ...mappedCells, [keys[index]] : cell.value } }
+                , {}))
+
+            return json;
+        },
+    }
+}
+
+exports.dataModelFromXLSXFile = async (filePath = '', worksheet = 0) => {
+    const workbook = new ExcelJS.Workbook();
+    await workbook.xlsx.readFile(filePath);
+
+    return converter(workbook.model.worksheets[worksheet]);
+};

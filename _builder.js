@@ -1,5 +1,5 @@
 const from = require('./configurations/origin.json');
-const destinations = require('./configurations/destinations.json');
+
 const transports = require('./configurations/transports.json');
 const Timer = require('./utilities/timer');
 const ExcelDataBuilder = require('./utilities/excel-data-builder');
@@ -30,7 +30,7 @@ async function buildExcel() {
 }
 
 // our script
-async function whenAllStarts() {
+async function whenAllStarts(destinations = []) {
     for (const destination of destinations) {
         for (const transport of transports) {
             // build the query to call searates service
@@ -56,8 +56,18 @@ async function whenAllStarts() {
 };
 
 try {
+    // destinations file path
+    const destinations = process.argv[2];
+
+    if(!destinations){
+        Timer.stopLoader(timer);
+        
+        process.stdout.write('Pls, provide the destinations file path');
+        process.exit(0);
+    }
+
     // start the program
-    whenAllStarts();
+    whenAllStarts(destinations);
 } catch  {
     // stop the loader
     Timer.stopLoader(timer);
