@@ -1,0 +1,9 @@
+{
+    "capitalCity": "Cidade capital",
+    "type": "Meio de transporte",
+    "road_from_seconds": "Tempo origem estrada (seg)",
+    "road_to_seconds": "Tempo destino estrada (seg)",
+    "road_seconds": "Tempo estrada (seg)",
+    "sea_seconds": "Tempo mar (seg)",
+    "air_seconds": "Tempo ar (seg)"
+}

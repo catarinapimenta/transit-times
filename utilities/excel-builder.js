@@ -1,17 +1,43 @@
+const pt = require('../translations/pt.json')
+
 const ExcelJS = require('exceljs');
 
-const workbook = new ExcelJS.Workbook();
-const worksheet = workbook.addWorksheet('Results');
+let workbook;
+let worksheet;
 
-worksheet.columns = [
-    { header: 'City capital', key: 'cityCapital' },
-    { header: 'Transport mode', key: 'transportMode' }
-];
+const FILE_EXTENSION = 'xlsx';
 
-exports.generateExcel();
+/**
+ * Excel builder object
+ */
+const builder = {
+    setColumns(columns = []){
+        worksheet.columns = columns.map(column => { 
+            return {
+                header: pt[column] || column,
+                key: column,
+                width: 25,
+            }
+         });
+        
+        // bold header
+        worksheet.getRow(1).font = { bold: true };
 
+        return builder;
+    },
+    setRows(excelData = []){
+        worksheet.addRows(excelData);
 
+        return builder;
+    },
+    async generate(filePath){
+        await workbook.xlsx.writeFile(`${filePath}.${FILE_EXTENSION}`)
+    }
+}
 
+exports.build = (worksheetName = 'Results') => {
+    workbook = new ExcelJS.Workbook();
+    worksheet = workbook.addWorksheet(worksheetName);
 
-
-exports.workbook = workbook;
+    return builder;
+};

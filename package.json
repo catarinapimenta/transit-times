@@ -4,7 +4,9 @@
   "description": "\"# transit-times\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "builder": "node _builder.js",
+    "reader": "node _reader.js"
   },
   "repository": {
     "type": "git",
